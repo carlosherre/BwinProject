@@ -1,17 +1,19 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { Footer } from "./footer";
 import { Header } from "./header";
+
 export function Home(){
+    
     return (
         <Fragment>
             <Header />
 
-            <p></p>
+            <div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
 
             <table class="table table-dark table-borderless">
                 <thead>
                     <tr class="bg-danger.bg-gradient">
-                       <td colspan="4" class="bg-warning h1 text-center text-black"> Partidos en Vivo</td>
+                       <td colSpan="4" class="bg-warning h1 text-center text-black"> Partidos en Vivo</td>
                     </tr>
                     <tr class="bg-black">
                         <th class="bg-black" scope="col">#</th>
@@ -89,7 +91,7 @@ export function Home(){
                     </tr>
                 </tbody>
             </table>
-
+            </div>
             <Footer />
         </Fragment>
     )
