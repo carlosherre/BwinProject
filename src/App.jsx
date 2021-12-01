@@ -8,6 +8,6 @@ export function App (){
     // if(ventana.value=="inicio")
       // return <Inicio />
     // else if(ventana.value == "home")
-     return <Registro />
+     return <Inicio />
    
 }
