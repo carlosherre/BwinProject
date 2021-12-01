@@ -8,18 +8,18 @@ export function Home(){
         <Fragment>
             <Header />
 
-            <div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
+            <div className="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
 
-            <table class="table table-dark table-borderless">
+            <table className="table table-dark table-borderless">
                 <thead>
-                    <tr class="bg-danger.bg-gradient">
-                       <td colSpan="4" class="bg-warning h1 text-center text-black"> Partidos en Vivo</td>
+                    <tr className="bg-danger.bg-gradient">
+                       <td colSpan="4" className="bg-warning h1 text-center text-black"> Partidos en Vivo</td>
                     </tr>
-                    <tr class="bg-black">
-                        <th class="bg-black" scope="col">#</th>
-                        <th class="bg-black" scope="col">Local</th>
-                        <th class="bg-black" scope="col">Visitante</th>
-                        <th class="bg-black" scope="col">Marcador</th>
+                    <tr className="bg-black">
+                        <th className="bg-black" scope="col">#</th>
+                        <th className="bg-black" scope="col">Local</th>
+                        <th className="bg-black" scope="col">Visitante</th>
+                        <th className="bg-black" scope="col">Marcador</th>
                     </tr>
                 </thead>
                 <tbody>
