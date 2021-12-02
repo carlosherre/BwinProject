@@ -1,6 +1,6 @@
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-import react, { Fragment } from "react";
+import React, { Fragment } from "react";
 import { FormContacto } from "../components/formContacto";
 
 export function Contacto(){

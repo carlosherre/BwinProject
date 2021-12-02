@@ -4,9 +4,9 @@ export function ContentHome(){
     
     return (
         <Fragment>
-            <div className="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
-
-            <table className="table table-dark table-borderless">
+            <div className=" position-static d-flex bg-secondary py-4 col " tabindex="-1" role="dialog" id="modalSignin">
+                
+            <table className="table table-dark table-bordered table-striped table-hover justify-content-md-center">
                 <thead>
                     <tr className="bg-danger.bg-gradient">
                        <td colSpan="4" className="bg-warning h1 text-center text-black"> Partidos en Vivo</td>
@@ -86,9 +86,11 @@ export function ContentHome(){
                         <td>1 - 0</td>
                     </tr>
                 </tbody>
+                
             </table>
+            
             </div>
-           
+            
         </Fragment>
     )
 }

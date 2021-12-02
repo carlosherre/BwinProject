@@ -6,7 +6,7 @@ export function Home(){
     
     return (
         <Fragment>
-            <Header />
+            <Header  />
             <ContentHome />
             <Footer />
         </Fragment>

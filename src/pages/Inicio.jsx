@@ -5,7 +5,7 @@ import { Header } from "../components/header";
 export function Inicio(){
     return (
         <Fragment>
-            <Header />
+            <Header  />
             <FormInicio />
             <Footer />
         </Fragment>
