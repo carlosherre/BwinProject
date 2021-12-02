@@ -1,13 +1,9 @@
-import React, { Fragment, useState } from "react";
-import { Footer } from "./footer";
-import { Header } from "./header";
+import React, { Fragment } from "react";
 
-export function Home(){
+export function ContentHome(){
     
     return (
         <Fragment>
-            <Header />
-
             <div className="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
 
             <table className="table table-dark table-borderless">
@@ -92,7 +88,7 @@ export function Home(){
                 </tbody>
             </table>
             </div>
-            <Footer />
+           
         </Fragment>
     )
 }
