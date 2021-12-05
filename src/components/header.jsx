@@ -17,7 +17,7 @@ export function Header(){
                             {(window.location.pathname==="/")?<li><a href="/" className="nav-link px-2 text-secondary" >Inicio</a></li>:<li><a href="/" className="nav-link px-2 text-white" >Inicio</a></li>}
                             {(window.location.pathname==="/contacto")?<li><a href="/contacto" className="nav-link px-2 text-secondary">Contáctenos</a></li>:<li><a href="/contacto" className="nav-link px-2 text-white">Contáctenos</a></li>}
                             {(window.location.pathname==="/apuestas")?<li><a href="/apuestas" className="nav-link px-2 text-secondary">Apuestas</a></li>:<li><a href="/apuestas" className="nav-link px-2 text-light">Apuestas</a></li>}
-                            {(window.location.pathname==="/gestion")?<li><a href="/gestion" className="nav-link px-2 text-secondary">Gestión de apuestas</a></li>:<li><a href="/gestion" className="nav-link px-2 text-light">Gestión de apuestas</a></li>}
+                            {(window.location.pathname==="/eventos")?<li><a href="/eventos" className="nav-link px-2 text-secondary">Gestión de eventos</a></li>:<li><a href="/eventos" className="nav-link px-2 text-light">Gestión de eventos</a></li>}
                             {(window.location.pathname==="/adm")?<li><a href="/adm" className="nav-link px-2 text-secondary">Zona Admin</a></li>:<li><a href="/adm" className="nav-link px-2 text-light">Zona Admin</a></li>}
                         </ul>
 

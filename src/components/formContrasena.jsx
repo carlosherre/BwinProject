@@ -25,7 +25,7 @@ export function FormContrasena(){
                             <input type="password" className="form-control rounded-4" id="txtconfirmar" placeholder="Confirmar Password" required/>
                             <label htmlFor="txtconfirmar">Confirmar Nueva Contraseña</label>
                         </div>
-                        <button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn-warning" type="submit">Cambiar contraeña</button>
+                        <button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn-warning" type="submit">Cambiar contraseña</button>
                         </form>
                         <br />
                     </div>

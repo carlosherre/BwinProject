@@ -4,6 +4,7 @@ import { Inicio } from "./pages/Inicio";
 import { Registro } from "./pages/Registro";
 import { Contrasena } from "./pages/Contrasena";
 import { Contacto } from "./pages/Contacto";
+import { Eventos } from "./pages/Eventos";
 
 export function App (){
     const ruta = window.location.pathname;
@@ -13,4 +14,5 @@ export function App (){
     if(ruta==="/registro") return <Registro />
     if(ruta==="/contrasena") return <Contrasena />
     if(ruta==="/contacto") return <Contacto />
+    if(ruta==="/eventos") return <Eventos />
 }
