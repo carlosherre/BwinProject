@@ -34,7 +34,7 @@ export function ContentEventos(){
                             <tr className="bg-black">
                                 <th className="bg-black text-center" scope="col">Partido</th>
                                 <th className="bg-black text-center" scope="col">Gana loc.</th>
-                                <th className="bg-black text-center" scope="col">Empate</th>
+                                <th className="bg-black text-center" scope="col">Emp</th>
                                 <th className="bg-black text-center" scope="col">Gana vis.</th>
                                 <th className="bg-black text-center" scope="col">Fecha y hora</th>
                             </tr>
@@ -55,8 +55,8 @@ export function ContentEventos(){
                     
                 </div>
                 
-                <div className="d-flex justify-content-center col">
-                    <div className="modal-body p-5 pt-0 bg-black">
+                <div className="container position-static d-flex align-self-start bd-highlight p-2 bg-secondary col ">
+                    <div className="d-flex p-5 pt-0 bg-black position-static">
                         <form className="" id="formEvento" onSubmit={guardarEvento} action="#">
 
                             <div className="row pt-4">
@@ -95,7 +95,7 @@ export function ContentEventos(){
                             </div>
                         <br/>
                             <div className="row justify-content-center">
-                                <button className="w-100 mb-0 btn btn-lg rounded-4 btn-primary btn-warning" type="submit" >Agregar Evento</button>
+                                <button className="w-100 mb-0 btn btn-lg rounded-4 btn-primary btn-warning" type="submit" id="agregarEvento">Agregar Evento</button>
                             </div>
                         </form>
                     </div>
@@ -103,14 +103,16 @@ export function ContentEventos(){
             </div>
             <hr />
             <div className="container position-static d-flex flex-wrap bg-secondary py-4" tabIndex="-1" role="dialog" id="modalSignin" >
-                <div class="container   d-grid bg-secondary col-4 align-content-start">
-                    <select classname="form-select form-select-lg mb-3 text-center form-select-warning rounded-4" name="selEvento" id="selEvento">
+                <div className="container d-grid bg-secondary col-4 align-content-start">
+                    <select onChange="" className="text-center btn-warning btn" name="selEvento" id="selEvento">
                         <option className="text-center" value="default">Elija un evento</option>
                         {eventos.map(evento => 
-                            <option className="text-center" name="selEvento">{evento.local+ " - "+evento.visitante}</option>
+                            <option className="text-center" value={evento.id}>{evento.local+ " - "+evento.visitante}</option>
                         )}
                     </select>  
                 </div>
+                
+
                 <br />
                 <div className="modal-body p-5 pt-0 bg-black col-8">
                     <form className="" id="formEvento" onSubmit={guardarEvento} action="#">
@@ -150,10 +152,9 @@ export function ContentEventos(){
                             </div>
                         </div>
                     <br/>
-                        <div className="row justify-content-center">
-                            <button className=" mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" >Editar evento</button>
-                            <span className="col-1"></span>
-                            <button className="mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" >Eliminar evento</button>
+                        <div className="row justify-content-around">
+                            <button className=" mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="editarEvento" >Editar evento</button>
+                            <button className="mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="eliminarEvento" >Eliminar evento</button>
                         </div>
                     </form>
                 </div>
