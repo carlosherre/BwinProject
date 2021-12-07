@@ -22,9 +22,9 @@ export function ContentEventos(){
     
     return(
         <Fragment>
-            <div className="container position-static d-flex flex-wrap bg-secondary py-4" tabIndex="-1" role="dialog" id="modalSignin" >
+            <div className="container position-static d-flex flex-wrap bg-secondary py-4" tabIndex="-1" role="dialog" id="contenedorEventos" >
                 
-                <div className="container position-static d-flex bg-secondary py-4 col " tabIndex="-1" role="dialog" id="modalSignin">
+                <div className="container position-static d-flex bg-secondary py-4 col " tabIndex="-1" role="dialog" id="contenedorTablas">
                     
                     <table className="table table-dark table-borderless table-striped table-hover">
                         <thead>
@@ -101,6 +101,64 @@ export function ContentEventos(){
                     </div>
                 </div>
             </div>
+            <hr />
+            <div className="container position-static d-flex flex-wrap bg-secondary py-4" tabIndex="-1" role="dialog" id="modalSignin" >
+                <div class="container   d-grid bg-secondary col-4 align-content-start">
+                    <select classname="form-select form-select-lg mb-3 text-center form-select-warning rounded-4" name="selEvento" id="selEvento">
+                        <option className="text-center" value="default">Elija un evento</option>
+                        {eventos.map(evento => 
+                            <option className="text-center" name="selEvento">{evento.local+ " - "+evento.visitante}</option>
+                        )}
+                    </select>  
+                </div>
+                <br />
+                <div className="modal-body p-5 pt-0 bg-black col-8">
+                    <form className="" id="formEvento" onSubmit={guardarEvento} action="#">
+
+                        <div className="row pt-4">
+                            <div className="form-group col-6">
+                                <label htmlFor="local" className="text-white">Equipo Local</label>
+                                <input type="text" className="form-control" id="local" required/>
+                            </div>
+                            <div className="form-group col-6">
+                                <label htmlFor="visitante" className="text-white">Equipo Visitante</label>
+                                <input type="text" className="form-control" id="visitante" required/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="form-group col-4">
+                                <label htmlFor="tgl" className="text-white" >Tasa Gana Local</label>
+                                <input type="number" className="form-control" id="tgl" step="any" required/>
+                            </div>
+                            <div className="form-group col-4">
+                                <label htmlFor="temp" className="text-white">Tasa Empate</label>
+                                <input type="number" className="form-control" id="temp" step="any" required/>
+                            </div>
+                            <div className="form-group col-4">
+                                <label htmlFor="tgv" className="text-white">Tasa Gana Visit.</label>
+                                <input type="number" className="form-control" id="tgv" step="any" required/>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="form-group col">
+                                <label htmlFor="fecha" className="text-white">Fecha del evento</label>
+                                <input type="date" className="form-control" id="fecha" required/>
+                            </div>
+                            <div className="form-group col">
+                                <label htmlFor="hora" className="text-white">Hora del evento</label>
+                                <input type="time" className="form-control" id="hora" required/>
+                            </div>
+                        </div>
+                    <br/>
+                        <div className="row justify-content-center">
+                            <button className=" mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" >Editar evento</button>
+                            <span className="col-1"></span>
+                            <button className="mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" >Eliminar evento</button>
+                        </div>
+                    </form>
+                </div>
+            </div>            
+           
         </Fragment>
     );
 }
