@@ -1,12 +1,12 @@
 import React, { Fragment } from "react";
-import { FormApuestas } from "../components/formApuestas";
+import { FormSaldo } from "../components/formSaldo";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-export function Apuestas(){
+export function Saldo(){
     return (
       <Fragment>
           <Header/>
-          <FormApuestas/>
+          <FormSaldo/>
           <Footer/>
       </Fragment>
     )

@@ -95,7 +95,8 @@ export function ContentEventos(){
                             </div>
                         <br/>
                             <div className="row justify-content-center">
-                                <button className="w-100 mb-0 btn btn-lg rounded-4 btn-primary btn-warning" type="submit" id="agregarEvento">Agregar Evento</button>
+                                <button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn-warning" type="submit" id="agregarEvento">Agregar Evento</button>
+                                <a href="/dashboard"><button className="w-100 mb-0 btn btn-lg rounded-4 btn-primary btn-warning" type="button" id="dash">Dashboard</button></a>
                             </div>
                         </form>
                     </div>
