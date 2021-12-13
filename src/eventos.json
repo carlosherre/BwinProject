@@ -1,113 +1,20 @@
 [
     {
-        "id":1,
         "local":"Tigres",
         "visitante":"Chivas",
-        "tasaL":1.1,
-        "tasaE":1.5,
-        "tasaV":4.3,
         "fecha":"04/12/2021",
         "hora":"10:00"
     },
     {
-        "id":2,
         "local":"Leones",
         "visitante":"Burros",
-        "tasaL":1.5,
-        "tasaE":2.1,
-        "tasaV":8.9,
         "fecha":"05/12/2021",
         "hora":"21:00"
     },
     {
-        "id":3,
         "local":"Fresas",
         "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
-        "fecha":"08/12/2021",
-        "hora":"21:00"
-    },
-    {
-        "id":3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "tasaL":1.2,
-        "tasaE":3.5,
-        "tasaV":7.2,
         "fecha":"08/12/2021",
         "hora":"21:00"
     }
-   
 ]

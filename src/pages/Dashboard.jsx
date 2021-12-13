@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import { Header } from "../components/header";
 import { Footer } from "../components/footer";
-import { ContetDashboard } from "../components/dashboard";
+import { ContentDashboard } from "../components/contentDashboard";
 
 
 export function Dashboard(){
     return (
         <Fragment >
             <Header  />
-            <ContetDashboard />
+            <ContentDashboard />
             <Footer />
         </Fragment>
     )
