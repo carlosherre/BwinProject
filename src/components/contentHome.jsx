@@ -1,9 +1,15 @@
-import React, { Fragment } from "react";
-import enVivo from "../enVivo.json";
+import React, { Fragment, useState, useEffect } from "react";
+import {get} from "../api/nodebwin/http";
 
 export function ContentHome(){
-   const partidos = enVivo;
-  
+   const [partidos, setPartidos] =useState([]);
+    
+   useEffect(()=>{
+    console.log("Leyendo eventos desde la api");
+    get("events").then((data)=>{
+        setPartidos(data.eventos)
+    })
+    },[]);
    
        
    
@@ -14,7 +20,7 @@ export function ContentHome(){
             <table className="table table-dark table-borderless table-striped table-hover">
                 <thead>
                     <tr className="bg-danger.bg-gradient">
-                       <td colSpan="3" className="bg-warning h1 text-center text-black"> Partidos en Vivo</td>
+                       <td colSpan="3" className="bg-warning h1 text-center text-black"> Eventos actuales</td>
                     </tr>
                     <tr className="bg-black">
                         <th className="bg-black text-center" scope="col">Local</th>

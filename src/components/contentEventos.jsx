@@ -1,37 +1,16 @@
-import React, { Fragment, useState } from "react";
-// import eventosJSON from "../eventos.json"
-const eventosJSON=[
-    {
-        "key": 1,
-        "local":"Tigres",
-        "visitante":"Chivas",
-        "fecha":"04/12/2021",
-        "hora":"10:00",
-        "estado":"activo",
-        "resultado":"none"
-    },
-    {
-        "key": 2,
-        "local":"Leones",
-        "visitante":"Burros",
-        "fecha":"05/12/2021",
-        "hora":"21:00",
-        "estado":"activo",
-        "resultado":"none"
-    },
-    {
-        "key": 3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "fecha":"08/12/2021",
-        "hora":"21:00",
-        "estado":"activo",
-        "resultado":"none"
-    }
-]
- 
+import React, { Fragment, useEffect, useState } from "react";
+import {get} from "../api/nodebwin/http";
+import eventosJSON from "../eventos.json"
+
 export function ContentEventos(){
-    const [eventos,setEventos] = useState(eventosJSON); 
+    const [eventos,setEventos] = useState([]); 
+
+    useEffect(()=>{
+        console.log("Leyendo eventos desde la api");
+        get("events").then(data=>{
+            setEventos(data.eventos);
+        })
+    },[]);
 
     const guardarEvento=()=>{
         let nkey=eventos[(eventos.length-1)].key+1;
@@ -50,10 +29,10 @@ export function ContentEventos(){
 
     const showSelect=()=>{
         const idEvento=document.getElementById("selEvento").value;
-        
+        console.log(idEvento);
         eventos.forEach(element => {    
             
-            if(element.key==idEvento){
+            if(element._id==idEvento){
                 document.getElementById("local2").value=element.local;
                 document.getElementById("visitante2").value=element.visitante;
                 document.getElementById("fecha2").value=element.fecha;
@@ -184,7 +163,7 @@ export function ContentEventos(){
                     <select onChange={showSelect} className="text-center btn-warning btn mb-2" name="selEvento" id="selEvento">
                         <option className="text-center" value="default" >Elija un evento</option>
                         {eventos.filter(evento=>evento.estado==="activo").map(evento => 
-                            <option className="text-center" value={evento.key}>{evento.local+ " - "+evento.visitante}</option>
+                            <option className="text-center" value={evento._id}>{evento.local+ " - "+evento.visitante}</option>
                         )}
                     </select>  
                     <select className="text-center btn-warning btn" name="selResultado" id="selResultado">

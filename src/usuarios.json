@@ -1,0 +1,12 @@
+[
+    {"_id":"a1","nombre":"Pedro", "apellido":"Perez", "celular":"111111111", "pais":"Colombia", "email":"pp@mail.com", "password":"123456789", "tipo":"1"},
+    {"_id":"a2","nombre":"Pablo", "apellido":"Marmol", "celular":"222222222", "pais":"Colombia", "email":"pm@mail.com", "password":"123456789", "tipo":"1"},
+    {"_id":"a3","nombre":"Juan", "apellido":"Reyes", "celular":"333333", "pais":"Colombia", "email":"jr@mail.com", "password":"123456789", "tipo":"1"},
+    {"_id":"b1","nombre":"Marta", "apellido":"Peñas", "celular":"444444", "pais":"Colombia", "email":"mp@mail.com", "password":"123456789", "tipo":"1"},
+    {"_id":"b2","nombre":"Barto", "apellido":"Lome", "celular":"5555555", "pais":"Colombia", "email":"bl@mail.com", "password":"123456789", "tipo":"1"},
+    {"_id":"b3","nombre":"Jenny", "apellido":"Candela", "celular":"6666666", "pais":"Colombia", "email":"jc@mail.com", "password":"123456789", "tipo":"1"},
+    {"_id":"b4","nombre":"Eva", "apellido":"Mendez", "celular":"777777777", "pais":"Colombia", "email":"em@mail.com", "password":"123456789", "tipo":"2"},
+    {"_id":"c1","nombre":"Maria", "apellido":"Del Barrio", "celular":"888888888", "pais":"Colombia", "email":"mdb@mail.com", "password":"123456789", "tipo":"2"},
+    {"_id":"c2","nombre":"Santi", "apellido":"Arias", "celular":"9999999999", "pais":"Colombia", "email":"sa@mail.com", "password":"123456789", "tipo":"3"},
+    {"_id":"c3","nombre":"Rada", "apellido":"Garcia", "celular":"0000000000", "pais":"Colombia", "email":"rg@mail.com", "password":"123456789", "tipo":"3"}
+]

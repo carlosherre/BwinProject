@@ -23,4 +23,6 @@ export function App (){
     if(ruta==="/apuestas") return <Apuestas />
     if(ruta==="/saldo") return <Saldo />
     if(ruta==="/dashboard") return <Dashboard />
+   
+
 }

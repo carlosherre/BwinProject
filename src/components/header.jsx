@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 
 export function Header(){
-    //const [ventana, setVentana] = useState("");
-    
+
     return(
     <Fragment>
         <header className="p-3 bg-black text-white">

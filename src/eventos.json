@@ -1,20 +1,29 @@
 [
     {
+        "_id":"ev01",
         "local":"Tigres",
         "visitante":"Chivas",
         "fecha":"04/12/2021",
-        "hora":"10:00"
+        "hora":"10:00",
+        "estado":"activo",
+        "resultado":"none"
     },
     {
+        "_id":"ev02",
         "local":"Leones",
         "visitante":"Burros",
         "fecha":"05/12/2021",
-        "hora":"21:00"
+        "hora":"21:00",
+        "estado":"activo",
+        "resultado":"none"
     },
     {
+        "_id":"ev03",
         "local":"Fresas",
         "visitante":"Mandarinas",
         "fecha":"08/12/2021",
-        "hora":"21:00"
+        "hora":"21:00",
+        "estado":"activo",
+        "resultado":"none"
     }
 ]
