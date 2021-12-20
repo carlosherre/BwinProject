@@ -12,3 +12,18 @@ export const get = async (endpoint) => {
         return console.log(error);
     }
 }
+
+export const post = async (endpoint, data) => {
+    try {
+        const response = await fetch(`${apiUrl}/${endpoint}`,{
+            headers:{
+                "Content-Type":"application/json",
+            },
+            method:"POST",
+            body: JSON.stringify(data)
+        });
+        return response.json()
+    } catch (error) {
+        return console.log(error);
+    }
+}
