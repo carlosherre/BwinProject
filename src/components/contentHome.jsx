@@ -7,6 +7,7 @@ export function ContentHome(){
    useEffect(()=>{
     console.log("Leyendo eventos desde la api");
     get("events").then((data)=>{
+        console.log(data);
         setPartidos(data.eventos);
     })
     },[]);

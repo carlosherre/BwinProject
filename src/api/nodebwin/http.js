@@ -27,3 +27,33 @@ export const post = async (endpoint, data) => {
         return console.log(error);
     }
 }
+
+export const patch = async (endpoint, data) => {
+    try {
+        const response = await fetch(`${apiUrl}/${endpoint}`,{
+            headers:{
+                "Content-Type":"application/json",
+            },
+            method:"PATCH",
+            body: JSON.stringify(data)
+        });
+        return response.json()
+    } catch (error) {
+        return console.log(error);
+    }
+}
+
+export const borrar = async (endpoint, data) => {
+    try {
+        const response = await fetch(`${apiUrl}/${endpoint}`,{
+            headers:{
+                "Content-Type":"application/json",
+            },
+            method:"DELETE",
+            body: JSON.stringify(data)
+        });
+        return response.json()
+    } catch (error) {
+        return console.log(error);
+    }
+}

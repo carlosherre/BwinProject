@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
-import {get, post} from "../api/nodebwin/http";
+import {get, post, patch, borrar} from "../api/nodebwin/http";
 import eventosJSON from "../eventos.json"
 
 export function ContentEventos(){
@@ -113,6 +113,25 @@ export function ContentEventos(){
         setDoRequest(true);
     }
 
+    const eventHandler2 = (event) =>{
+        event.preventDefault();
+        const newEvento={
+            id: document.getElementById("selEvento").value,
+            resultado: document.getElementById("selResultado").value
+        };
+        patch("events", newEvento);
+        setDoRequest(true);
+    }
+
+    const eventHandler3 = (event) =>{
+        event.preventDefault();
+        const newEvento={
+            id: document.getElementById("selEvento").value
+        };
+        borrar("events", newEvento);
+        setDoRequest(true);
+    }
+
     return(
         <Fragment>
             <div className="container position-static d-flex flex-wrap bg-secondary py-4" tabIndex="-1" role="dialog" id="contenedorEventos" >
@@ -200,7 +219,7 @@ export function ContentEventos(){
 
                 <br />
                 <div className="modal-body p-5 pt-0 bg-black col-8">
-                    <form className="" id="formMostrar" action="#">
+                    <form name="formMostrar">
 
                         <div className="row pt-4">
                             <div className="form-group col-6">
@@ -224,8 +243,8 @@ export function ContentEventos(){
                         </div>
                     <br/>
                         <div className="row justify-content-around">
-                            <button className=" mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="editarEvento" onClick={finalizarEvento} >Finalizar evento</button>
-                            <button className="mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="eliminarEvento" onClick={eliminarEvento} >Eliminar evento</button>
+                            <button className=" mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="editarEvento" onClick={eventHandler2} >Finalizar evento</button>
+                            <button className="mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="eliminarEvento" onClick={eventHandler3} >Eliminar evento</button>
                         </div>
                     </form>
                 </div>
