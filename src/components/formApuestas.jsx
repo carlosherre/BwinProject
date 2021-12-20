@@ -1,7 +1,4 @@
 import React, {Fragment, useEffect, useState} from "react";
-// import even  from "../eventos.json";
-// import usuarios from "../usuarios.json";
-// import apue from "../apuestas.json";
 import { get, post } from "../api/nodebwin/http";
 
 export function FormApuestas(){

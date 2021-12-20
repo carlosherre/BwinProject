@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState } from "react";
 import {get, post, patch, borrar} from "../api/nodebwin/http";
-import eventosJSON from "../eventos.json"
 
 export function ContentEventos(){
     const [eventos,setEventos] = useState([]); 
@@ -27,7 +26,7 @@ export function ContentEventos(){
         console.log(idEvento);
         eventos.forEach(element => {    
             
-            if(element._id==idEvento){
+            if(element._id===idEvento){
                 document.getElementById("local2").value=element.local;
                 document.getElementById("visitante2").value=element.visitante;
                 document.getElementById("fecha2").value=element.fecha;
@@ -45,7 +44,7 @@ export function ContentEventos(){
     const crearEvento=(event) =>{
         event.preventDefault();
         const data = new FormData(event.target);
-        if(!data.get("local") || !data.get("visitante") || data.get("fecha") || data.get("hora")){
+        if(!data.get("local") || !data.get("visitante") || !data.get("fecha") || !data.get("hora")){
             alert("Debe llenar todos los campos");
         }else{
             const newEvento={
