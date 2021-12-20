@@ -1,12 +1,70 @@
-import React, {Fragment, useState} from "react";
-import even  from "../eventos.json";
-import usuarios from "../usuarios.json";
-import apue from "../apuestas.json";
+import React, {Fragment, useEffect, useState} from "react";
+// import even  from "../eventos.json";
+// import usuarios from "../usuarios.json";
+// import apue from "../apuestas.json";
+import { get, post } from "../api/nodebwin/http";
 
 export function FormApuestas(){
-    const [user, setUser]=useState(usuarios);
-    const [apuestas, setApuestas]=useState(apue);
-    const [eventos, setEventos]=useState(even);
+    const [user, setUser]=useState([]);
+    const [apuestas, setApuestas]=useState([]);
+    const [eventos, setEventos]=useState([]);
+    const [doRequest, setDoRequest]=useState(false);
+    
+    useEffect(()=>{
+        get("users").then(data=>{
+            console.log("leyendo usuarios\n",data);
+            setUser(data.usuarios);
+        })
+        get("events").then(data=>{
+            console.log("leyendo eventos\n",data);
+            setEventos(data.eventos);
+        })
+        get("apuestas").then(data=>{
+            console.log("leyendo apuestas\n",data);
+            setApuestas(data.apuestas);
+        })
+    },[]);
+
+    useEffect(()=>{
+        if(doRequest){
+            get("events").then(data=>{
+                setEventos(data.eventos);
+            })
+            get("users").then(data=>{
+                setUser(data.usuarios);
+            })
+            get("apuestas").then(data=>{
+                setApuestas(data.apuestas);
+            })
+            setDoRequest(false);
+        }
+    },[doRequest]);
+
+    const crearApuesta = (event)=>{
+        event.preventDefault();
+        if(!document.getElementById("selApostador").value){
+            alert("Debe seleccionar un apostador");
+        }
+        else if(!document.getElementById("selEvento").value){
+            alert("Debe seleccionar un evento");
+        }
+        else if(!document.getElementById("selOpcion").value){
+            alert("Debe elegir una opción de apuesta");
+        }
+        else if(!document.getElementById("txtmonto").value){
+            alert("Debe poner un precio para la apuesta");
+        }
+        else{
+            const newApuesta ={
+                id_apostador:document.getElementById("selApostador").value,
+                id_evento:document.getElementById("selEvento").value,
+                monto:parseInt(document.getElementById("txtmonto").value),
+                seleccion:document.getElementById("selOpcion").value
+            }
+            post("apuestas", newApuesta);
+            setDoRequest(true);
+        }
+    }
 
     return(
         <Fragment>
@@ -19,20 +77,20 @@ export function FormApuestas(){
                     </div>
 
                     <div className="modal-body p-5 pt-0">
-                        <form className="" onSubmit="" action="#">
+                        <form className="" >
                         <div className="d-flex form-floating mb-3 justify-content-center">
-                            <select onChange="" className="text-center btn-warning btn-lg" name="selApostador" id="selApostador">
-                            <option className="text-center" value="ev01">Elija su Nombre</option>
+                            <select onChange={get("apuestas").then(data=>{setApuestas(data.apuestas);})} className="text-center btn-warning btn-lg" name="selApostador" id="selApostador">
+                            <option className="text-center" value="">Elija su Nombre</option>
                             {user.filter(usu=>usu.tipo==="1").map(usuario => 
                                 <option className="text-center" value={usuario._id}>{usuario.nombre+ " "+usuario.apellido}</option>
                             )}
                             </select>  
                         </div>   
                         <div className="d-flex form-floating mb-3 justify-content-center">
-                            <select onChange="" className="text-center btn-warning btn-lg" name="selEvento" id="selEvento">
-                            <option className="text-center" value="default">Elija una apuesta</option>
-                            {eventos.map(evento => 
-                                <option className="text-center" value={evento.id}>{evento.local+ " - "+evento.visitante}</option>
+                            <select className="text-center btn-warning btn-lg" name="selEvento" id="selEvento">
+                            <option className="text-center" value="">Elija un Evento</option>
+                            {eventos.filter(eve=>eve.estado==="activo").map(evento => 
+                                <option className="text-center" value={evento._id}>{evento.local+ " - "+evento.visitante}</option>
                             )}
                             </select>  
                         </div>
@@ -41,14 +99,14 @@ export function FormApuestas(){
                             <label htmlFor="txtmonto">Valor Apostar</label>
                         </div>
                         <div className="d-flex form-floating mb-3 justify-content-center">
-                        <select onChange="" className="text-center btn-warning btn-lg" name="selEvento" id="selEvento">
-                            <option className="text-center" value="default">Elija una opcion</option>
-                            <option className="text-center" value="1">Gana Local</option>
-                            <option className="text-center" value="2">Empate</option>
-                            <option className="text-center" value="3">Gana visitante</option>
+                        <select onChange="" className="text-center btn-warning btn-lg" name="selOpcion" id="selOpcion">
+                            <option className="text-center" value="">Elija una opcion</option>
+                            <option className="text-center" value="gana local">Gana Local</option>
+                            <option className="text-center" value="empate">Empate</option>
+                            <option className="text-center" value="gana visitante">Gana visitante</option>
                         </select>  
                         </div>  
-                        <button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn-warning" type="submit">Crear Apuesta</button>
+                        <button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn-warning" type="submit" onClick={crearApuesta}>Crear Apuesta</button>
                         <a href="/saldo"><button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn-warning" type="button">Ver Saldo</button></a>
                         </form>
                         <br />
@@ -75,7 +133,7 @@ export function FormApuestas(){
                             {apuestas.filter(apu => apu.id_apostador===document.getElementById("selApostador").value).map(
                                 apu=>
                                 <tr>
-                                    <td className="text-center">{eventos.filter(even=>even._id==apu.id_evento).local + " - " + eventos.filter(even=>even._id==apu.id_evento).visitante}</td>
+                                    <td className="text-center">{eventos.filter(even=>even._id===apu.id_evento).map(a=>a.local)+ " - " + eventos.filter(even=>even._id===apu.id_evento).map(a=>a.visitante)}</td>
                                     <td className="text-center">{apu.monto}</td>
                                     <td className="text-center">{apu.seleccion}</td>
                                     <td className="text-center">{apu.estado}</td>

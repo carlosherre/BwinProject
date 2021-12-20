@@ -22,21 +22,6 @@ export function ContentEventos(){
         }
     },[doRequest]);
 
-    const guardarEvento=()=>{
-        let nkey=eventos[(eventos.length-1)].key+1;
-        const nuevoEvento = {
-            "key": nkey,
-            "local":document.getElementById("local").value,
-            "visitante":document.getElementById("visitante").value,
-            "fecha":document.getElementById("fecha").value,
-            "hora":document.getElementById("hora").value,
-            "estado":"activo",
-            "resultado":"none"
-        };
-        
-        setEventos([...eventos,nuevoEvento]); 
-    }
-
     const showSelect=()=>{
         const idEvento=document.getElementById("selEvento").value;
         console.log(idEvento);
@@ -57,79 +42,56 @@ export function ContentEventos(){
         }) 
     }
     
-    const finalizarEvento = () =>{
-        const idEvento=document.getElementById("selEvento").value;
-        const idResul=document.getElementById("selResultado").value;
-        const prevEvents=eventos;
-        if(idEvento==="default"){
-            alert("Debe elegir un Evento");
-            return
-        }
-        if(idResul==="default"){
-            alert("Debe elegir un Resultado");
-            return
-        }
-        for(var i=0; i<prevEvents.length;i++){
-            if(prevEvents[i].key==idEvento){
-                const newEvent={
-                    "key": prevEvents[i].key,
-                    "local":prevEvents[i].local,
-                    "visitante":prevEvents[i].visitante,
-                    "fecha":prevEvents[i].fecha,
-                    "hora":prevEvents[i].hora,
-                    "estado":"finalizado",
-                    "resultado":idResul 
-                };
-                prevEvents[i]=newEvent;
-                setEventos([...prevEvents]);
-            }
-        }   
-    }
-    const eliminarEvento = () =>{
-        const idEvento=document.getElementById("selEvento").value;
-        const prevEvents=eventos;
-        if(idEvento==="default"){
-            alert("Debe elegir un Evento");
-            return
-        }
-        for(var i=0; i<prevEvents.length;i++){
-            if(prevEvents[i].key==idEvento){
-                prevEvents.splice(i,1);
-                setEventos([...prevEvents]);
-            }
-        }   
-    }
-
-    const eventHandler=(event) =>{
+    const crearEvento=(event) =>{
         event.preventDefault();
         const data = new FormData(event.target);
-        const newEvento={
-            local:data.get("local"),
-            visitante: data.get("visitante"),
-            fecha: data.get("fecha"),
-            hora: data.get("hora")
+        if(!data.get("local") || !data.get("visitante") || data.get("fecha") || data.get("hora")){
+            alert("Debe llenar todos los campos");
+        }else{
+            const newEvento={
+                local:data.get("local"),
+                visitante: data.get("visitante"),
+                fecha: data.get("fecha"),
+                hora: data.get("hora")
+            };
+            post("events", newEvento);
+            setDoRequest(true);
+            alert("Evento creado con éxito");
         }
-        post("events", newEvento);
-        setDoRequest(true);
     }
 
-    const eventHandler2 = (event) =>{
+    const finalizarEvento = (event) =>{
         event.preventDefault();
-        const newEvento={
-            id: document.getElementById("selEvento").value,
-            resultado: document.getElementById("selResultado").value
-        };
-        patch("events", newEvento);
-        setDoRequest(true);
+        if(!document.getElementById("selEvento").value){
+            alert("Debe seleccionar un evento");
+        }
+        else if(!document.getElementById("selResultado").value){
+            alert("Debe seleccionar un resultado");
+        }
+        else{
+            const newEvento={
+                id: document.getElementById("selEvento").value,
+                resultado: document.getElementById("selResultado").value
+            };
+            patch("events", newEvento);
+            setDoRequest(true);
+            alert("Evento finalizado con éxito");
+        }
     }
 
-    const eventHandler3 = (event) =>{
+    const eliminarEvento = (event) =>{
         event.preventDefault();
-        const newEvento={
-            id: document.getElementById("selEvento").value
-        };
-        borrar("events", newEvento);
-        setDoRequest(true);
+        if(!document.getElementById("selEvento").value){
+            alert("Debe seleccionar un evento");
+        }
+        else{
+            const newEvento={
+                id: document.getElementById("selEvento").value
+            };
+            borrar("events", newEvento);
+            setDoRequest(true);
+            alert("Evento eliminado con éxito");
+        }
     }
 
     return(
@@ -168,7 +130,7 @@ export function ContentEventos(){
                 
                 <div className="container position-static d-flex align-self-start bd-highlight p-2 bg-secondary col ">
                     <div className="d-flex p-5 pt-0 bg-black position-static">
-                        <form name="formEvento" onSubmit={eventHandler}>
+                        <form name="formEvento" onSubmit={crearEvento}>
 
                             <div className="row pt-4">
                                 <div className="form-group col-6">
@@ -203,13 +165,13 @@ export function ContentEventos(){
             <div className="container position-static d-flex flex-wrap bg-secondary py-4" tabIndex="-1" role="dialog" id="modalSignin" >
                 <div className="container d-grid bg-secondary col-4 align-content-start">
                     <select onChange={showSelect} className="text-center btn-warning btn mb-2" name="selEvento" id="selEvento">
-                        <option className="text-center" value="default" >Elija un evento</option>
+                        <option className="text-center" value="" >Elija un evento</option>
                         {eventos.filter(evento=>evento.estado==="activo").map(evento => 
                             <option className="text-center" value={evento._id}>{evento.local+ " - "+evento.visitante}</option>
                         )}
                     </select>  
                     <select className="text-center btn-warning btn" name="selResultado" id="selResultado">
-                        <option className="text-center" value="default">Elija un Resultado</option>
+                        <option className="text-center" value="">Elija un Resultado</option>
                         <option className="text-center" value="gana Local">Gana Local</option>
                         <option className="text-center" value="empate">Empate</option>
                         <option className="text-center" value="gana Visitante">Gana Visitante</option>
@@ -223,28 +185,28 @@ export function ContentEventos(){
 
                         <div className="row pt-4">
                             <div className="form-group col-6">
-                                <label htmlFor="local" className="text-white">Equipo Local</label>
+                                <label htmlFor="local2" className="text-white">Equipo Local</label>
                                 <input type="text" className="form-control" id="local2" readOnly/>
                             </div>
                             <div className="form-group col-6">
-                                <label htmlFor="visitante" className="text-white">Equipo Visitante</label>
+                                <label htmlFor="visitante2" className="text-white">Equipo Visitante</label>
                                 <input type="text" className="form-control" id="visitante2" readOnly/>
                             </div>
                         </div>
                         <div className="row">
                             <div className="form-group col">
-                                <label htmlFor="fecha" className="text-white">Fecha del evento</label>
+                                <label htmlFor="fecha2" className="text-white">Fecha del evento</label>
                                 <input type="text" className="form-control" id="fecha2" readOnly/>
                             </div>
                             <div className="form-group col">
-                                <label htmlFor="hora" className="text-white">Hora del evento</label>
+                                <label htmlFor="hora2" className="text-white">Hora del evento</label>
                                 <input type="time" className="form-control" id="hora2" readOnly/>
                             </div>
                         </div>
                     <br/>
                         <div className="row justify-content-around">
-                            <button className=" mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="editarEvento" onClick={eventHandler2} >Finalizar evento</button>
-                            <button className="mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="eliminarEvento" onClick={eventHandler3} >Eliminar evento</button>
+                            <button className=" mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="editarEvento" onClick={finalizarEvento} >Finalizar evento</button>
+                            <button className="mb-0 btn btn-lg rounded-4 btn-primary btn-warning col-5" type="submit" id="eliminarEvento" onClick={eliminarEvento} >Eliminar evento</button>
                         </div>
                     </form>
                 </div>

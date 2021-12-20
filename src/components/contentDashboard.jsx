@@ -1,113 +1,30 @@
-import React, { Fragment, useState } from "react";
-const eventosJSON=[
-    {
-        "key": 1,
-        "local":"Tigres",
-        "visitante":"Chivas",
-        "fecha":"04/12/2021",
-        "hora":"10:00",
-        "estado":"finalizado",
-        "resultado":"gana visitante",
-        "apuestas": [{
-            "id":12345678,
-            "monto":2000,
-            "apuesta":"gana local"
-        },
-        {
-            "id":987654321,
-            "monto":3000,
-            "apuesta":"gana visitante"
-        },
-        {
-            "id":458139763,
-            "monto":1000,
-            "apuesta":"gana local"
-        }]
-    },
-    {
-        "key": 2,
-        "local":"Leones",
-        "visitante":"Burros",
-        "fecha":"05/12/2021",
-        "hora":"21:00",
-        "estado":"finalizado",
-        "resultado":"gana local",
-        "apuestas": [{
-            "id":12345678,
-            "monto":2000,
-            "apuesta":"gana local"
-        },
-        {
-            "id":987654321,
-            "monto":10000,
-            "apuesta":"gana visitante"
-        },
-        {
-            "id":458139763,
-            "monto":1000,
-            "apuesta":"gana local"
-        }]
-    },
-    {
-        "key": 3,
-        "local":"Fresas",
-        "visitante":"Mandarinas",
-        "fecha":"08/12/2021",
-        "hora":"21:00",
-        "estado":"finalizado",
-        "resultado":"empate",
-        "apuestas": [{
-            "id":12345678,
-            "monto":2000,
-            "apuesta":"gana local"
-        },
-        {
-            "id":987654321,
-            "monto":15000,
-            "apuesta":"gana visitante"
-        },
-        {
-            "id":458139763,
-            "monto":1000,
-            "apuesta":"gana local"
-        }]
-    },
-    {
-        "key": 4,
-        "local":"Papayas",
-        "visitante":"Mangos",
-        "fecha":"16/12/2021",
-        "hora":"11:00",
-        "estado":"finalizado",
-        "resultado":"gana local",
-        "apuestas": [{
-            "id":12345678,
-            "monto":20000,
-            "apuesta":"gana local"
-        },
-        {
-            "id":987654321,
-            "monto":25000,
-            "apuesta":"gana visitante"
-        },
-        {
-            "id":458139763,
-            "monto":21000,
-            "apuesta":"gana local"
-        }]
-    }
-]
+import React, { Fragment, useEffect, useState } from "react";
+import { get } from "../api/nodebwin/http";
+
 export function ContentDashboard(){
     const [apostadores, setApostadores]=useState([0,0,0]);
+    const [eventos, setEventos]=useState([]);
+    const [apuestas, setApuestas]=useState([]);
+    const [user, setUser]=useState([]);
+
+    useEffect(()=>{
+        get("events").then((data)=>{
+            setEventos(data.eventos);
+        })
+        get("apuestas").then((data)=>{
+            setApuestas(data.apuestas);
+        })
+        get("users").then((data)=>{
+            setUser(data.usuarios);
+        })
+    },[])
 
     const montoTotal = (idEvento) =>{
         var montoEvento=0;
-        eventosJSON.forEach(evento => {
-            if(evento.key==idEvento){
-                evento.apuestas.forEach(apuesta => {
-                   montoEvento+=apuesta.monto 
-                }    
-            )};
+        apuestas.forEach(apuesta => {
+            if(apuesta.id_evento===idEvento){
+                montoEvento+=apuesta.monto;
+            }    
         });
         return montoEvento;
     }
@@ -116,9 +33,9 @@ export function ContentDashboard(){
         var montoMayor=0;
         var eventoMayor="";
         var montoEvento=0;
-        eventosJSON.forEach(evento => {
-            evento.apuestas.forEach(apuesta => {
-                montoEvento+=apuesta.monto 
+        eventos.forEach(evento => {
+            apuestas.filter(apu=>apu.id_evento===evento._id).forEach(apuesta => {
+                montoEvento+=apuesta.monto; 
             })
             if(montoEvento>montoMayor){
                 montoMayor=montoEvento;
@@ -132,8 +49,8 @@ export function ContentDashboard(){
         var montoMenor=Infinity;
         var eventoMenor="";
         var montoEvento=0;
-        eventosJSON.forEach(evento => {
-            evento.apuestas.forEach(apuesta => {
+        eventos.forEach(evento => {
+            apuestas.filter(apu=>apu.id_evento===evento._id).forEach(apuesta => {
                 montoEvento+=apuesta.monto 
             })
             if(montoEvento<montoMenor){
@@ -145,17 +62,16 @@ export function ContentDashboard(){
         return [eventoMenor, montoMenor];
     }
     const apue = () =>{
-        var idEvento=0;
-        var nuevaApuesta=[];
-        idEvento = document.getElementById("selevento").value;
-        eventosJSON.filter(eventos => eventos.key==idEvento).forEach(evento =>{
-        
-            evento.apuestas.forEach(apuesta =>{
-                nuevaApuesta.push([apuesta.id, apuesta.monto, apuesta.apuesta])
-            })
-            setApostadores([...nuevaApuesta]);
-           
-        })
+        const idEvento = document.getElementById("selevento").value;
+        let datos=[];
+        apuestas.filter(apuesta => apuesta.id_evento===idEvento).map(apuesta =>
+            
+             datos.push([user.filter(usu=>usu._id===apuesta.id_apostador).map(usu=>usu.nombre+" "+usu.apellido),
+                 apuesta.monto, 
+                 apuesta.seleccion])
+            )
+            
+        setApostadores([...datos]);
     }
 
     return (
@@ -175,11 +91,11 @@ export function ContentDashboard(){
                                 </tr>
                             </thead>
                             <tbody >
-                                {eventosJSON.filter(evento => evento.estado=="finalizado").map(evento =>
+                                {eventos.filter(evento => evento.estado==="finalizado").map(evento =>
                                 <tr className="text-center">
                                     <td>{evento.local+ " - "+evento.visitante}</td>
                                     <td>{evento.resultado}</td>
-                                    <td>${montoTotal(evento.key)}</td>
+                                    <td>${montoTotal(evento._id)}</td>
                                 </tr>
                                 )}
                             </tbody>
@@ -231,8 +147,8 @@ export function ContentDashboard(){
                     <div className="col-4 d-grid bg-secondary col-4 align-content-start">
                         <select onChange={apue} className="text-center btn-warning btn mb-2" name="selevento" id="selevento">
                             <option className="text-center" value="0" >Elija un evento</option>
-                            {eventosJSON.filter(evento=>evento.estado==="finalizado").map(evento => 
-                                <option className="text-center" value={evento.key}>{evento.local+ " - "+evento.visitante}</option>
+                            {eventos.filter(evento=>evento.estado==="finalizado").map(evento => 
+                                <option className="text-center" value={evento._id}>{evento.local+ " - "+evento.visitante}</option>
                             )}
                         </select>
                     </div>
@@ -243,21 +159,19 @@ export function ContentDashboard(){
                                     <td colSpan="3" className="bg-warning h1 text-center text-black"> Apuestas del evento</td>
                                 </tr>
                                 <tr className="bg-black">
-                                    <th className="bg-black text-center" scope="col">ID apostador</th>
+                                    <th className="bg-black text-center" scope="col">Apostador</th>
                                     <th className="bg-black text-center" scope="col">Monto apostado</th>
                                     <th className="bg-black text-center" scope="col">Apuesta seleccionada</th>
                                 </tr>
                             </thead>
                             <tbody >
-                                {apostadores.map(apuesta=>
-                                    
-                                    <tr className="text-center">
-                                        <td>{apuesta[0]}</td>
-                                        <td>${apuesta[1]}</td>
-                                        <td>{apuesta[2]}</td>
-                                    </tr>
-                                )
-                                }
+                                {apostadores.map(apos=>
+                                <tr className="text-center">
+                                    <td>{apos[0]}</td>
+                                    <td>${apos[1]}</td>
+                                    <td>{apos[2]}</td>
+                                </tr>    
+                                )}
                             </tbody>
                         </table> 
                     </div>
