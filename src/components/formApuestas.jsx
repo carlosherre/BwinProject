@@ -98,9 +98,9 @@ export function FormApuestas(){
                         <div className="d-flex form-floating mb-3 justify-content-center">
                         <select onChange="" className="text-center btn-warning btn-lg" name="selOpcion" id="selOpcion">
                             <option className="text-center" value="">Elija una opcion</option>
-                            <option className="text-center" value="gana local">Gana Local</option>
-                            <option className="text-center" value="empate">Empate</option>
-                            <option className="text-center" value="gana visitante">Gana visitante</option>
+                            <option className="text-center" value="Gana Local">Gana Local</option>
+                            <option className="text-center" value="Empate">Empate</option>
+                            <option className="text-center" value="Gana Visitante">Gana visitante</option>
                         </select>  
                         </div>  
                         <button className="w-100 mb-2 btn btn-lg rounded-4 btn-primary btn-warning" type="submit" onClick={crearApuesta}>Crear Apuesta</button>

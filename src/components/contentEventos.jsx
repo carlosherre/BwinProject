@@ -72,7 +72,13 @@ export function ContentEventos(){
                 id: document.getElementById("selEvento").value,
                 resultado: document.getElementById("selResultado").value
             };
+            const modApuestas={
+                id_evento: document.getElementById("selEvento").value,
+                resultado: document.getElementById("selResultado").value
+            }
             patch("events", newEvento);
+            patch("apuestas", modApuestas);
+            patch("users", )
             setDoRequest(true);
             alert("Evento finalizado con éxito");
         }
@@ -171,9 +177,9 @@ export function ContentEventos(){
                     </select>  
                     <select className="text-center btn-warning btn" name="selResultado" id="selResultado">
                         <option className="text-center" value="">Elija un Resultado</option>
-                        <option className="text-center" value="gana Local">Gana Local</option>
-                        <option className="text-center" value="empate">Empate</option>
-                        <option className="text-center" value="gana Visitante">Gana Visitante</option>
+                        <option className="text-center" value="Gana Local">Gana Local</option>
+                        <option className="text-center" value="Empate">Empate</option>
+                        <option className="text-center" value="Gana Visitante">Gana Visitante</option>
                     </select>  
                 </div>
                 
